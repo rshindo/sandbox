@@ -5,7 +5,6 @@
  */
 package com.sample.form;
 
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -60,6 +59,26 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(obj instanceof User) {
+            User target = (User)obj;
+            if(this.name.equals(target.getName()) &&
+                    this.userId.equals(target.getUserId()) &&
+                    this.age.equals(target.getAge())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "userId=" + userId + ", name=" + name + ", age=" + age + '}';
+    }
+
     
     
     

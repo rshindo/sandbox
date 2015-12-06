@@ -22,6 +22,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -29,8 +30,6 @@ import static org.junit.Assert.*;
  */
 public class MyResourceTest extends JerseyTest {
     
-    public MyResourceTest() {
-    }
     
     public static class TestBinder extends AbstractBinder {
 
@@ -49,7 +48,7 @@ public class MyResourceTest extends JerseyTest {
 
     @Override
     protected void configureClient(ClientConfig config) {
-        config.register(MultiPartFeature.class);
+        config.register(MultiPartFeature.class).register(User.class);
     }
     
     @BeforeClass
@@ -142,15 +141,16 @@ public class MyResourceTest extends JerseyTest {
         String userId = "user001";
         String name = "shindo";
         Integer age = 25;
-        String actual = target("myresource")
+        User expected = new User(userId, name, age);
+        User actual = target("myresource")
                 .path("json")
                 .queryParam("userId", userId)
                 .queryParam("name", name)
                 .queryParam("age", age)
                 .request()
-                .accept(MediaType.APPLICATION_JSON)
-                .get(String.class);
-        assertThat(actual, is(""));
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .get(User.class);
+        assertThat(actual, is(expected));
     }
     
 }

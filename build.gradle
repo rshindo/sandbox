@@ -58,6 +58,7 @@ dependencies {
     // Jersey
     compile 'org.glassfish.jersey.media:jersey-media-multipart:2.22.1'
     compile 'org.glassfish.jersey.core:jersey-server:2.22.1'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.22.1'
     
     // Hibernate Validator
     compile 'org.hibernate:hibernate-validator:5.2.2.Final'
@@ -74,7 +75,8 @@ dependencies {
     
     // Jersey Test Framework
     testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.1'
-    testCompile 'org.glassfish:jsonp-jaxrs:1.0'
+//    testCompile 'org.glassfish:jsonp-jaxrs:1.0'
+    testCompile 'com.fasterxml.jackson.core:jackson-databind:2.3.4'
 
     // HK2
     testCompile 'org.glassfish.hk2:hk2-api:2.3.0'

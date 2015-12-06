@@ -76,10 +76,10 @@ public class MyResource {
     @Path("json")
     @Produces(MediaType.APPLICATION_JSON)
     public User getJson(@QueryParam("userId") String userId,
-            @QueryParam("password") String password,
+            @QueryParam("name") String name,
             @QueryParam("age") Integer age) {
         
-        User user = new User(userId, userId, age);
+        User user = new User(userId, name, age);
         return user;
     }
     
