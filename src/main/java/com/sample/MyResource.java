@@ -15,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -69,6 +70,17 @@ public class MyResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String diplayUserInfo(@Valid @BeanParam User user) {
         return user.getUserId()+":"+user.getName()+":"+user.getAge();
+    }
+    
+    @GET
+    @Path("json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getJson(@QueryParam("userId") String userId,
+            @QueryParam("password") String password,
+            @QueryParam("age") Integer age) {
+        
+        User user = new User(userId, userId, age);
+        return user;
     }
     
 }

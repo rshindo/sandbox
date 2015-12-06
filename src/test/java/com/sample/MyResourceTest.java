@@ -5,6 +5,7 @@
  */
 package com.sample;
 
+import com.sample.form.User;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Form;
@@ -21,7 +22,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -44,7 +44,7 @@ public class MyResourceTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig().register(new TestBinder()).register(MyResource.class);
+        return new ResourceConfig().register(new TestBinder()).register(MyResource.class).register(User.class);
     }
 
     @Override
@@ -135,6 +135,22 @@ public class MyResourceTest extends JerseyTest {
         String expected = userId+":"+name+":"+age;
         Response response = target("myresource").path("user").request().accept(MediaType.TEXT_PLAIN).post(Entity.form(form), Response.class);
         assertThat(response.getStatus(), is(HttpStatus.BAD_REQUEST_400.getStatusCode()));
+    }
+    
+    @Test
+    public void testGetJson() {
+        String userId = "user001";
+        String name = "shindo";
+        Integer age = 25;
+        String actual = target("myresource")
+                .path("json")
+                .queryParam("userId", userId)
+                .queryParam("name", name)
+                .queryParam("age", age)
+                .request()
+                .accept(MediaType.APPLICATION_JSON)
+                .get(String.class);
+        assertThat(actual, is(""));
     }
     
 }
